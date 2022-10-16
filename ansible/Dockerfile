@@ -8,10 +8,9 @@ RUN apt-get update && apt-get install -y curl \
 # Move back to the default working directory for opus
 WORKDIR /opt/ansible
 
-# Copy the local files from the current folder
-# (Make sure to first move to the "ansible" folder)
-COPY ./ansible.cfg /opt/ansible/ansible.cfg
-COPY ./hosts /etc/ansible/hosts
+# Copy both the ansible configuration and the inventory file
+COPY ./configuration/ansible.cfg /opt/ansible/ansible.cfg
+COPY ./configuration/hosts /etc/ansible/hosts
 
 # Run the "provision.yaml" playbook:
 # - Using the inventory file "hosts"

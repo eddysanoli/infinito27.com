@@ -1,8 +1,63 @@
-# Make it so that Ansible can "escalate" to root
-- hosts: all
+# Target all hosts in the inventory
+- hosts: "*"
+
+  # Name of the playbook
   name: provision-infinito27
 
-  # Tasks
+  # Make it so that Ansible can "escalate" to root
+  # (i.e. run commands using sudo)
+  become: true
   tasks:
-    - name: Get IP of Server
-      shell: "echo pp"
+    # ---------------------------------------------- #
+    - name: Update Server Packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    # ---------------------------------------------- #
+    - name: Install Git, Nginx, Node, NPM
+      apt:
+        name:
+          - git
+          - nginx
+          - nodejs
+          - npm
+        state: latest
+
+    # ---------------------------------------------- #
+    - name: Delete Default Nginx Config from the Sites Enabled
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    # ---------------------------------------------- #
+    - name: Copy Nginx Config for Infinito27.com
+      copy:
+        src: /opt/ansible/storage/nginx/infinito27.com
+        dest: /etc/nginx/sites-available/infinito27.com
+
+    # ---------------------------------------------- #
+    # Analog: ln -s /source /destination
+    - name: Create Symbolic Link for Infinito27.com
+      file:
+        src: /etc/nginx/sites-available/infinito27.com
+        dest: /etc/nginx/sites-enabled/infinito27.com
+        state: link
+
+    # ---------------------------------------------- #
+    - name: Reload Nginx Configuration
+      shell: "nginx -s reload"
+
+    # ---------------------------------------------- #
+    - name: Create the Frontend Folder (In case it doesn't exist)
+      file:
+        path: /var/www/infinito27
+        state: directory
+
+    # ---------------------------------------------- #
+    - name: Transfer Frontend Files to the Server
+      copy:
+        src: /opt/frontend/
+        dest: /var/www/infinito27/
+        remote_src: yes
+        directory_mode: yes

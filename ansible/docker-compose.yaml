@@ -6,11 +6,15 @@ services:
     build: ./
     image: ansible:latest
     container_name: ansible
-    # entrypoint: /bin/bash
-    # tty: true
     volumes:
-      - ./playbooks:/opt/ansible/playbooks              # Playbooks to execute
-      - ./hosts:/etc/ansible/hosts                      # Ansible inventory file
-      - ./ansible.cfg:/etc/ansible/ansible.cfg          # Ansible configuration file
-      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro              # Private SSH key to allow Ansible to connect to the remote host
+      - ./playbooks:/opt/ansible/playbooks                          # Playbooks to execute
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro                          # Private SSH key to allow Ansible to connect to the remote host. Uses "ro" to make it read-only
       - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:ro                 	
+      - ./storage:/opt/ansible/storage                              # Directory where files that are going to be transfered to the remote hosts are stored 
+      - ../frontend:/opt/frontend                                   # Directory where the frontend files are stored
+
+    # Debugging options
+    # If uncommented the container remains idle and accessible 
+    # instead of running the Ansible playbook
+    # entrypoint: /bin/bash                                         # Debug Option
+    # tty: true                                                     # Debug Option                 
