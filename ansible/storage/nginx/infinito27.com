@@ -42,7 +42,7 @@ server {
     # include snippets/snakeoil.conf;
 
     # IMPORTANT: Where the files for your site are located
-    root /var/www/infinito27;
+    root /var/www/infinito27/frontend;
 
     # Add index.php to the list if you are using PHP
     index index.html index.htm index.nginx-debian.html;

@@ -57,7 +57,6 @@
     # ---------------------------------------------- #
     - name: Transfer Frontend Files to the Server
       copy:
-        src: /opt/frontend/
-        dest: /var/www/infinito27/
-        remote_src: yes
+        src: /opt/frontend
+        dest: /var/www/infinito27
         directory_mode: yes
