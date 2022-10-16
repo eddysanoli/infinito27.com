@@ -1,0 +1,8 @@
+# Make it so that Ansible can "escalate" to root
+- hosts: all
+  name: provision-infinito27
+
+  # Tasks
+  tasks:
+    - name: Get IP of Server
+      shell: "echo pp"

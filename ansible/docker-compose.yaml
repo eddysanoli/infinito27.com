@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  ansible:
+    build: ./
+    image: ansible:latest
+    container_name: ansible
+    # entrypoint: /bin/bash
+    # tty: true
+    volumes:
+      - ./playbooks:/opt/ansible/playbooks              # Playbooks to execute
+      - ./hosts:/etc/ansible/hosts                      # Ansible inventory file
+      - ./ansible.cfg:/etc/ansible/ansible.cfg          # Ansible configuration file
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro              # Private SSH key to allow Ansible to connect to the remote host
+      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:ro                 	

@@ -19,6 +19,18 @@ resource "linode_instance" "website_server" {
     authorized_keys = [
         var.PUBLIC_SSH_KEY
     ]
+
+    # Run Ansible provisioning playbook 
+    provisioner "local-exec" {
+
+        # Fill content of the hosts file in "ansible/hosts" using the "hosts.tpl" template
+        command = templatefile("hosts.tpl", {
+            website_server_ip = self.ip_address
+        })
+
+        # Run it using bash
+        interpreter = ["bash", "-c"]
+    }
 }
 
 /* ============================================ */
