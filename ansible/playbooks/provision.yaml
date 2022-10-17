@@ -26,7 +26,7 @@
         state: latest
 
     # ---------------------------------------------- #
-    - name: Install Certbot
+    - name: Install Certbot using Snapd
       shell: snap install --classic certbot
 
     - name: Create a Symbolic Link for Snapd's Certbot

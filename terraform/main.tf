@@ -50,6 +50,10 @@ resource "linode_domain" "website_domain" {
     # Address that reaches you but its outside your domain and ideally
     # doesn't require your linode to be operational. Gmail for example
     soa_email = "eddysanoli@gmail.com"
+
+    # TTL (Time to Live) for the domain cache
+    # Note: This is not respected by all DNS servers. Its more of a suggestion
+    ttl_sec = 3600
 }
 
 /* ============================================ */
@@ -63,6 +67,10 @@ resource "linode_domain_record" "website_domain_record" {
     name = "infinito27.com"
     record_type = "A"
     target = linode_instance.website_server.ip_address
+
+    # How often the record refreshes its cache
+    # Note: This may not be respected by all DNS servers. Its more of a suggestion
+    ttl_sec = 3600
 }
 
 # Infinito27 WWW Domain Record
@@ -75,4 +83,8 @@ resource "linode_domain_record" "website_domain_record_www" {
     # This wont target to the IP address of the linode instance
     # but the "A" record of the domain name so that both lead to the same page
     target = "infinito27.com" 
+
+    # TTL (Time to live). Frequency for record cache refresh in seconds
+    # Note: This may not be respected by all DNS servers. Its more of a suggestion
+    ttl_sec = 3600
 }
