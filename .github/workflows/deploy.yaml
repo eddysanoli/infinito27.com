@@ -21,6 +21,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/infinito27
+            git checkout .
             git fetch
             git pull origin master
       
