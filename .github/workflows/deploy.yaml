@@ -1,0 +1,22 @@
+name: Infinito27 CD
+
+on: 
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    name: Deploy to Linode Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch and pull latest changes from master
+        uses: appleboy/ssh-action@master 
+        with:
+          host: ${{ secrets.LINODE_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /var/www/infinito27
+            git fetch
+            git pull origin master
+
