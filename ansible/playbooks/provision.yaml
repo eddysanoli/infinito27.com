@@ -15,14 +15,25 @@
         upgrade: yes
 
     # ---------------------------------------------- #
-    - name: Install Git, Nginx, Node, NPM
+    - name: Install Git, Snapd (for Certbot), Nginx, Node, NPM
       apt:
         name:
           - git
           - nginx
           - nodejs
           - npm
+          - snapd
         state: latest
+
+    # ---------------------------------------------- #
+    - name: Install Certbot
+      shell: snap install --classic certbot
+
+    - name: Create a Symbolic Link for Snapd's Certbot
+      file:
+        src: /snap/bin/certbot
+        dest: /usr/bin/certbot
+        state: link
 
     # ---------------------------------------------- #
     - name: Delete Default Nginx Config from the Sites Enabled
@@ -47,6 +58,17 @@
     # ---------------------------------------------- #
     - name: Reload Nginx Configuration
       shell: "nginx -s reload"
+
+    # ---------------------------------------------- #
+    # Explanation of Parameters
+    # - --nginx: Use the Nginx plugin
+    # - --non-interactive: Don't ask for confirmations or input from the user
+    # - --agree-tos: Agree to the Terms of Service automatically
+    # - --expand: If a certificate already exists, expand it to include the new domains or changes
+    # - -m email@email.com: Email address used to notify the user about certificate expiration
+    # - -d domain: Add a certificate to the given domain. Can be used multiple times
+    - name: Start Certbot for Nginx (Add SSL Certificate to Site)
+      shell: "certbot --nginx --non-interactive --agree-tos --expand -m eddysanoli@gmail.com -d infinito27.com -d www.infinito27.com"
 
     # ---------------------------------------------- #
     - name: Delete the Files for the Site
