@@ -49,14 +49,19 @@
       shell: "nginx -s reload"
 
     # ---------------------------------------------- #
-    - name: Create the Frontend Folder (In case it doesn't exist)
+    - name: Delete the Files for the Site
+      file:
+        path: /var/www/infinito27
+        state: absent
+
+    - name: Re-create the Directory for the Site's Files
       file:
         path: /var/www/infinito27
         state: directory
 
     # ---------------------------------------------- #
-    - name: Transfer Frontend Files to the Server
-      copy:
-        src: /opt/frontend
+    # Note: Use the HTTPS URL for the Git Repo in order to avoid the use of SSH Keys
+    - name: Clone the "Infinito27.com" Repository
+      git:
+        repo: https://github.com/eddysanoli/infinito27.com.git
         dest: /var/www/infinito27
-        directory_mode: yes
