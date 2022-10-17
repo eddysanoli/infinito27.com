@@ -9,7 +9,10 @@ jobs:
     name: Deploy to Linode Server
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch and pull latest changes from master
+
+      # Reference:
+      # https://github.com/marketplace/actions/ssh-remote-commands
+      - name: Pull newest changes from master
         uses: appleboy/ssh-action@master 
         with:
           host: ${{ secrets.LINODE_HOST }}
