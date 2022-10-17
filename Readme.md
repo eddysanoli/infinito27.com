@@ -26,7 +26,7 @@ If you ever want to take down the infrastructure, use the following command:
 terraform destroy -auto-approve
 ```
 
-**Notes**
+### Notes
 
 - The `terraform.tfvars` file is not included in the repo since its doing the same job as a `.env` file. It contains sensitive information like the linode API key.
 - The file `.terraform.lock.hcl` and folder `.terraform` are created automatically when running the command `terraform init`.
@@ -52,9 +52,23 @@ This command will create an Ansible container and run the `provision.yaml` playb
 - Configuring Nginx to connect the domain name to the site's files
 - Attach an SSL certificate to the domain name
 
-### Keep in Mind
+### Notes
 
 - **SSH Keys**: The Ansible container will use your local SSH keys (`id_rsa` and `id_rsa.pub`) to connect to the remote host. Make sure that you have them in the `~/.ssh` folder and that they have the correct permissions granted (use `chmod 600 file/name` to correct that).
 - **Hosts and ansible.cfg**: The Ansible container loads the `hosts` inventory file on build. If you ever re-deploy, you will also need to rebuild the Ansible container. For this just run `docker image rm ansible` and then `docker compose up` again.
 - **Debugging**: If you ever need to debug the Ansible container, I included a couple of "debug instructions" at the end of the `docker-compose.yaml` file. Once uncommented they will overwrite the default entrypoint of the Ansible container and cause it to idle, making it possible for you to connect to it and navigate its internal file system.
 - **Complete Teardown**: If you ever tear down the infrastructure completely, the domain `infinito27.com` will be associated with a new IP address. If you try to ssh into the server using `ssh root@infinito27.com` it will warn you of a phishing attack. This is not the case, its just that you switched the IP of your server by rebuilding everything again. Go into your `known_hosts` file and remove the entry for `infinito27.com` and then you will be able to ssh into the server again.
+
+## CI/CD (Github Actions)
+
+For the CI/CD I used Github Actions. The workflow is triggered by a push to the `main` branch. It will then navigate to the directory where the files for the site are stored in the server (`var/www/infinito27.com`) and pull the latest changes from the `main` branch. Said files are then used to build a "static" version of the site, making it possible to serve it via Nginx.
+
+### Notes
+
+- This is the only step that requires manual intervention from the user. In order to have the CI/CD work, you need to create 3 repository secrets inside of Github:
+
+  - `LINODE_HOST`: The IP of the Linode server
+  - `SSH_USERNAME`: Username for the SSH connection. For now it's just `root` but should be changed to something else later.
+  - `SSH_PASSWORD`: Password for the SSH connection. The same one that was declared in `terraform.tfvars`.
+
+- Will probably move to using Dagger in the future. The promise of local and platform agnostic CI/CD seems too good to pass up.
