@@ -32,6 +32,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/infinito27
+            cd /var/www/infinito27/website
             npm run build
 
