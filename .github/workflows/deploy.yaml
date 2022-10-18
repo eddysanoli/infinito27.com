@@ -26,6 +26,11 @@ jobs:
             git pull origin master
       
       # ---------------------------------------------- #
+      # Steps:
+      # 1. Move to the website directory where the Vite files are
+      # 2. Remove the package-lock file to prevent errors locking errors. Will make the process take longer
+      # 3. Install the NPM required packages 
+      # 4. Create the "dist" folder by doing "npm run build"
       - name: Build the Website
         uses: appleboy/ssh-action@master
         with:
@@ -34,6 +39,8 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/infinito27/website
+            rm package-lock.json
+            rm node_modules -R
             npm install
             npm run build
 

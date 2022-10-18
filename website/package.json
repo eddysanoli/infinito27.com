@@ -14,7 +14,7 @@
     "vue": "^3.2.41"
   },
   "devDependencies": {
-    "@types/node": "^18.8.0",
+    "@types/node": "18.8.0",
     "@types/jest": "^29.1.2",
     "@types/lodash": "^4.14.186",
     "@vitejs/plugin-vue": "^3.1.0",

@@ -15,15 +15,33 @@
         upgrade: yes
 
     # ---------------------------------------------- #
-    - name: Install Git, Snapd (for Certbot), Nginx, Node, NPM
+    - name: Install Git, Snapd (for Certbot), Nginx
       apt:
         name:
           - git
           - nginx
-          - nodejs
-          - npm
           - snapd
         state: latest
+
+    # ---------------------------------------------- #
+    # Note: This is required because just doing "apt-get install nodejs" installs
+    # a really old version of Node. Here we install Node 16. The current version at
+    # the time of writing this.
+    - name: Install the GPG Key for Node LTS
+      apt_key:
+        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+        state: present
+
+    - name: Add Latest NodeJS Source
+      apt_repository:
+        repo: deb https://deb.nodesource.com/node_16.x bionic main
+        update_cache: yes
+        state: present
+
+    - name: Install NodeJS
+      apt:
+        name: nodejs
+        state: present
 
     # ---------------------------------------------- #
     - name: Install Certbot using Snapd

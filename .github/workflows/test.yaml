@@ -22,4 +22,8 @@ jobs:
       
       # ---------------------------------------------- #
       - name: Test the Website
-        run: npm testNPM Test
+        run: npm run test
+      
+      # ---------------------------------------------- #
+      - name: Try to Build the Website
+        run: npm run build
