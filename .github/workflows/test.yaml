@@ -22,8 +22,10 @@ jobs:
       
       # ---------------------------------------------- #
       - name: Test the Website
+        working-directory: ./website
         run: npm run test
       
       # ---------------------------------------------- #
       - name: Try to Build the Website
+        working-directory: ./website
         run: npm run build
