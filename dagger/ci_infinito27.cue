@@ -34,14 +34,14 @@ dagger.#Plan & {
 		// ---------------------------------------------- // 
 		// Run the test suite inside the docker container
 		test: bash.#Run & {
-			workdir: "/var/www/infinito27/website"
+			workdir: "/var/www/infinito27/website/frontend"
 			script: contents: "npm run test"
 		}
 
 		// ---------------------------------------------- //
 		// Build the site
 		build: bash.#Run & {
-			workdir: "/var/www/infinito27/website"
+			workdir: "/var/www/infinito27/website/frontend"
 			script: contents: "npm run build"
 		}
 	}

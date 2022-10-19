@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/infinito27/website
+            cd /var/www/infinito27/website/frontend
             rm package-lock.json
             rm node_modules -R
             npm install

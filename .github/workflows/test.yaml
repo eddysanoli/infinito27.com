@@ -22,15 +22,15 @@ jobs:
       
       # ---------------------------------------------- #
       - name: Install NPM Dependencies
-        working-directory: ./website
+        working-directory: ./website/frontend
         run: npm install
       
       # ---------------------------------------------- #
       - name: Test the Website
-        working-directory: ./website
+        working-directory: ./website/frontend
         run: npm run test
       
       # ---------------------------------------------- #
       - name: Try to Build the Website
-        working-directory: ./website
+        working-directory: ./website/frontend
         run: npm run build
