@@ -21,6 +21,11 @@ jobs:
           node-version: 16
       
       # ---------------------------------------------- #
+      - name: Install NPM Dependencies
+        working-directory: ./website
+        run: npm install
+      
+      # ---------------------------------------------- #
       - name: Test the Website
         working-directory: ./website
         run: npm run test
