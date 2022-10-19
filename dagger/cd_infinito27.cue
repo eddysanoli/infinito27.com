@@ -23,7 +23,7 @@ dagger.#Plan & {
 	actions: {
 
 		// ---------------------------------------------- //
-		// Install node in the container
+		// Echo "hello" 
 		copy: bash.#Run & {
 			script: contents: #"""
                 echo hello
