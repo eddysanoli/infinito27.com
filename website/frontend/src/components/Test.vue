@@ -17,8 +17,8 @@
     </div>
 
     <hr>
-
     <h3>Test: Mouseover</h3>
+    <p>Events that trigger when the mouse moves across an element</p>
 
     <!-- Different mouseover events -->
     <!-- You can attach events by using both "v-on:event" or "@event" -->
@@ -30,6 +30,35 @@
     </div>
 
     <hr>
+    <h3>Test: V-for, dynamic data classes and computed properties</h3>
+    <p>
+        Cycle through an array of data with v-for. Use a v-bind, in conjunction with a 
+        special syntax ({className: boolean}) to dynamically add classes to an element.
+        Also, use computed properties to filter the reactive data present on the frontend.
+    </p>
+
+    <button @click="{ filterFav = !filterFav; }">Filter Favorites: {{ filterFav }}</button>
+
+    <!-- Remember that ":attribute" is the same as "v-bind:attribute" -->
+    <div v-if="showBooks">
+        <div 
+            v-for="book in filteredBooks()" 
+            :class="{ fav: book.isFav }"
+            @dblclick="{ book.isFav = !book.isFav; }"
+        >
+            <h3>{{ book.title }}</h3>
+            <p>{{ book.author }}</p>
+        </div>
+    </div>
+
+    <hr>
+    <h3>Attribute Binding</h3>
+
+    <!-- Insert dynamic values inside of the attributes of an HTML tag --> 
+    <!-- Since you can only insert variable like this "{{ var }}" inside -->
+    <!-- the contents of the tag. -->
+    <a v-bind:href="test_url">Best website ever!</a>
+
 </template>
 
 <!-- ====================================== -->
@@ -42,10 +71,35 @@
 
     import { Ref, ref } from 'vue'
 
+    // Types
+    type Book = {
+        title: string;
+        author: string;
+        isFav?: boolean;
+    }
+
     // Reactive state
     const clicked: Ref<boolean> = ref(false);
     let x: Ref<number> = ref(0);
     let y: Ref<number> = ref(0);
+    const showBooks: Ref<boolean> = ref(true);
+    const filterFav: Ref<boolean> = ref(false);
+    const books: Ref<Array<Book>> = ref([
+        { title: "The Hobbit", author: "J.R.R. Tolkien", isFav: true },
+        { title: "The Lord of the Rings", author: "J.R.R. Tolkien", isFav: false },
+        { title: "The Silmarillion", author: "J.R.R. Tolkien", isFav: true },
+    ]);
+    const test_url: Ref<string> = ref("https://www.eddysanoli.com");
+
+    // Computed Properties
+    const filteredBooks = () => {
+        if (filterFav.value) {
+            return books.value.filter((book) => book.isFav);
+        }
+        else {
+            return books.value;
+        }
+    }
 
     // Toggle the "clicked" state
     const toggleClicked = () => {
@@ -86,6 +140,12 @@
             background-color: grey;
             padding: 30px;
         }
+    }
+
+    // Favorite book
+    .fav {
+        background-color: rgba(230, 230, 106, 0.24);
+        border-radius: 10px;
     }
 
     // On Click Secret
