@@ -1,6 +1,7 @@
 <!-- ====================================== -->
 <!-- TEMPLATE                               -->
 <!-- ====================================== -->
+
 <template>
     
     <h3>Test: On Click</h3>
@@ -126,7 +127,10 @@
 <!-- STYLES                                 -->
 <!-- ====================================== -->
 
-<style lang="scss">
+<!-- The "scoped" keyword allows the styles to be exclusive to this component only -->
+<!-- There is a performance hit associated with including "scoped", since "scoped" -->
+<!-- just adds a prefix to the selectors of a file -->
+<style lang="scss" scoped>
 
     // Mouseover boxes
     .boxes {
