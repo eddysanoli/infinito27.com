@@ -18,9 +18,8 @@
 <template>
 
     <h1>My Test Site</h1>
-    <Tutorial4 /> 
+    <Tutorial4 />
 
-    
 </template>
 
 <!-- ====================================== -->

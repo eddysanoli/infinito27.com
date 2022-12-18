@@ -43,7 +43,7 @@
     <!-- Remember that ":attribute" is the same as "v-bind:attribute" -->
     <div v-if="showBooks">
         <div 
-            v-for="book in filteredBooks()" 
+            v-for="book in filteredBooks" 
             :class="{ fav: book.isFav }"
             @dblclick="{ book.isFav = !book.isFav; }"
         >
@@ -70,7 +70,7 @@
 <!-- a "setup()" function defined inside -->
 <script setup lang="ts">
 
-    import { Ref, ref } from 'vue'
+    import { Ref, ref, computed, ComputedRef } from 'vue'
 
     // Types
     type Book = {
@@ -93,14 +93,14 @@
     const test_url: Ref<string> = ref("https://www.eddysanoli.com");
 
     // Computed Properties
-    const filteredBooks = () => {
+    const filteredBooks: ComputedRef = computed(() => {
         if (filterFav.value) {
             return books.value.filter((book) => book.isFav);
         }
         else {
             return books.value;
         }
-    }
+    });
 
     // Toggle the "clicked" state
     const toggleClicked = () => {
