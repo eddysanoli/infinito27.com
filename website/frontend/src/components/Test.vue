@@ -2,7 +2,7 @@
 <!-- TEMPLATE                               -->
 <!-- ====================================== -->
 <template>
-    <hr>
+    
     <h3>Test: On Click</h3>
 
     <!-- Event listener -->
@@ -135,7 +135,6 @@
         gap: 10px;
 
         div {
-            width: 200px;
             height: 200px;
             background-color: grey;
             padding: 30px;
