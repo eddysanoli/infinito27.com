@@ -8,6 +8,7 @@
     // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
     import Tutorial3 from './components/Tutorial3.vue' 
     import Tutorial4 from './components/Tutorial4.vue'
+    import Tutorial5 from './components/Tutorial5.vue'
 
 </script>
 
@@ -18,7 +19,7 @@
 <template>
 
     <h1>My Test Site</h1>
-    <Tutorial4 />
+    <Tutorial5 />
 
 </template>
 

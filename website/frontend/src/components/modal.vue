@@ -89,6 +89,7 @@
 
         // Position in the center of the screen
         position: fixed;
+        text-align: center;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
