@@ -1,16 +1,25 @@
+
 <!-- ====================================== -->
 <!-- SCRIPTS                                -->
 <!-- ====================================== -->
 
 <script setup lang="ts">
 
-    // This starter template is using Vue 3 <script setup> SFCs
-    // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-    import Tutorial3 from './components/Tutorial3.vue' 
-    import Tutorial4 from './components/Tutorial4.vue'
-    import Tutorial5 from './components/Tutorial5.vue'
-    import Tutorial6 from './components/Tutorial6.vue'
-    import Tutorial7 from './components/Tutorial7.vue'
+    import { ref, Ref, defineProps } from 'vue'
+    import { useRoute } from 'vue-router'
+
+    /* =================== PROPS ================== */
+
+    const props = defineProps({
+        id: {
+            type: Number,
+            required: true
+        }
+    })
+
+    /* =================== REFS =================== */
+
+    const id: Ref<number> = ref(props.id);
 
 </script>
 
@@ -19,14 +28,13 @@
 <!-- ====================================== -->
 
 <template>
-
-    <Tutorial7/>
-
+    <h1>Job Details Page</h1>
+    <p>The job id is {{ $route.params.id }}</p>
 </template>
 
 <!-- ====================================== -->
 <!-- STYLES                                 -->
 <!-- ====================================== -->
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>

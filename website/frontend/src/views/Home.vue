@@ -3,15 +3,6 @@
 <!-- ====================================== -->
 
 <script setup lang="ts">
-
-    // This starter template is using Vue 3 <script setup> SFCs
-    // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-    import Tutorial3 from './components/Tutorial3.vue' 
-    import Tutorial4 from './components/Tutorial4.vue'
-    import Tutorial5 from './components/Tutorial5.vue'
-    import Tutorial6 from './components/Tutorial6.vue'
-    import Tutorial7 from './components/Tutorial7.vue'
-
 </script>
 
 <!-- ====================================== -->
@@ -19,14 +10,15 @@
 <!-- ====================================== -->
 
 <template>
-
-    <Tutorial7/>
-
+    <h1>Home</h1> 
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero veniam deleniti, exercitationem quis laudantium quasi odio, explicabo dolorem blanditiis porro nemo. Reiciendis aperiam vero atque nulla, natus dolor nam illo?
+    </p>
 </template>
 
 <!-- ====================================== -->
 <!-- STYLES                                 -->
 <!-- ====================================== -->
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>
