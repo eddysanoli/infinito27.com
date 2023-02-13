@@ -105,3 +105,43 @@
       git:
         repo: https://github.com/eddysanoli/infinito27.com.git
         dest: /var/www/infinito27
+
+    # ---------------------------------------------- #
+    # Golang 1.19
+
+    - name: Download Golang 1.19 Files
+      get_url:
+        url: https://golang.org/dl/go1.19.1.linux-amd64.tar.gz
+        dest: /tmp/go1.19.1.linux-amd64.tar.gz
+
+    - name: Extract Golang Tarball to /usr/local
+      unarchive:
+        src: /tmp/go1.19.1.linux-amd64.tar.gz
+        dest: /usr/local
+        remote_src: yes
+
+    - name: Delete the Golang Tarball
+      file:
+        path: /tmp/go1.19.1.linux-amd64.tar.gz
+        state: absent
+
+    - name: Setup the GOPATH Environment Variable
+      lineinfile:
+        path: /etc/profile
+        line: "export GOPATH=$HOME/go"
+        insertafter: EOF
+
+    - name: Add GOPATH to the PATH Environment Variable
+      lineinfile:
+        path: /etc/profile
+        line: "export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin"
+        insertafter: EOF
+
+    # ---------------------------------------------- #
+    # Pocketbase
+
+    - name: Download Pocketbase
+      shell: "go get github.com/pocketbase/pocketbase"
+
+    - name: Start Pocketbase
+      shell: "$GOPATH/bin/pocketbase/"
